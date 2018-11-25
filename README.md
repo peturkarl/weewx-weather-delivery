@@ -60,7 +60,7 @@ Restart service and make sure it starts up correctly
 $ sudo service weewx restart
 ```
 
-Fetch the project files
+### 3. Fetch the project files and configure
 ```sh
 $ cd /home/pi
 $ git clone https://github.com/peturkarl/weewx-weather-delivery.git
@@ -73,7 +73,7 @@ $ touch logs/cron-delivery.log
 $ sudo chmod 777 logs/cron-delivery.log
 ```
 
-### 3. Setup cron schedule
+### 4. Setup cron schedule
 ```sh
 # Login as user 'pi"
 $ sudo crontab -e
