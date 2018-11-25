@@ -29,16 +29,17 @@ Insert the following JSON to the file
 {
     "datetime": "$current.dateTime",
     "outTemp": "$current.outTemp",
-    "windchill": "$current.windchill",
+    "inTemp": "$current.inTemp",
     "heatindex": "$current.heatindex",
-    "dewpoint": "$current.dewpoint",
     "outHumidity": "$current.outHumidity",
     "barometer": "$current.barometer",
+    "windchill": "$current.windchill",
     "windSpeed": "$current.windSpeed",
     "windDir": "$current.windDir",
+    "windGust": "$current.windGust",
     "ordinal_compass": "$current.windDir.ordinal_compass",
+    "dewpoint": "$current.dewpoint",
     "rainRate": "$current.rainRate",
-    "inTemp": "$current.inTemp",
     "UV": "$current.UV",
     "ET": "$current.ET",
     "radiation": "$current.radiation"
@@ -85,11 +86,13 @@ $ sudo crontab -e
 ```
 
 ## Helpful commands
-
 ```sh
 # Information log WEEWX
 $ sudo cat /var/log/syslog | grep weewx | less
 
 # Restart WeeWX service
 $ sudo service restart weewx
+
+# Update code from Git repository (you might have some issues with file permissions)
+$ git pull origin master
 ```
