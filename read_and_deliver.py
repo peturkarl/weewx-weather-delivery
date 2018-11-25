@@ -7,7 +7,7 @@ import cv2
 import sys
 from picamera import PiCamera
 from datetime import datetime
-from config import *
+from config import config
 
 # Set font properties
 font = cv2.FONT_HERSHEY_DUPLEX
@@ -49,7 +49,7 @@ def directionMap(windDirection):
 
 # Fetch Weather data
 try:
-	with open(WEATHER_FILE) as f:
+	with open(config.WEATHER_FILE) as f:
 		weather_data = json.load(f)
 except:
 	print("Could not open weather_data file, make sure it has been setup. Quitting..")
@@ -58,13 +58,13 @@ except:
 # Initalize Camera
 try:
 	camera = PiCamera()
-	camera.resolution = (IMAGE_WIDTH, IMAGE_HIGHT)
-	camera.annotate_text_size = TEXT_SIZE
+	camera.resolution = (config.IMAGE_WIDTH, config.IMAGE_HIGHT)
+	camera.annotate_text_size = config.TEXT_SIZE
 except:
 	print("Could not open camera feed, make sure it has been connected and setup correctly. Quitting..")
 	sys.exit()
 
-try: 
+try:
 	# Get temp value from file
 	temperature_value = weather_data['outTemp']
 
@@ -74,17 +74,16 @@ try:
 	# Get wind in ms and direction from helper function
 	wind_value = weather_data['windSpeed']
 	wind_direction = directionMap(weather_data['ordinal_compass'])
-	
-except: 
+except:
 	print("Could not get weather data from file, has it been setup correctly?")
 
 try:
 	# initalize first picture so the camera can set the brightnes
-	camera.capture('latest_image_from_camera.jpg', quality=IMAGE_QUALITY)
+	camera.capture('latest_image_from_camera.jpg', quality=config.IMAGE_QUALITY)
 	time.sleep(1)
-	camera.capture('latest_image_from_camera.jpg', quality=IMAGE_QUALITY)
+	camera.capture('latest_image_from_camera.jpg', quality=config.IMAGE_QUALITY)
 	img = cv2.imread('latest_image_from_camera.jpg')
-except: 
+except:
 	print("Could not snap image from camera feed, make sure it has been connected and setup correctly. Quitting..")
 	
 # get image width height
@@ -97,7 +96,7 @@ cv2.line(img,(0,ht),(wd,ht),(0,0,0), 75)
 
 # add text at top and bottom of image
 # Python: cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]) None
-cv2.putText(img, HEADER_TEXT+' - '+ date_header, (10,30), font, font_size_on_image,font_color,1)
+cv2.putText(img, config.HEADER_TEXT+' - '+ date_header, (10,30), font, font_size_on_image,font_color,1)
 cv2.putText(img, wind_direction + ' ' + wind_value + ' ' + temperature_value,(10,ht-10), font, font_size_on_image,font_color,1)
 
 try:
@@ -109,7 +108,7 @@ except:
 # Upload procedure
 try:
 	files = {'userfile': open('latest_image_from_camera.jpg', 'rb')}
-	requests.post(SERVER, files=files, auth=(USER, PASS))
+	requests.post(config.SERVER, files=files, auth=(config.USER, config.PASS))
 except: 
 	print("Could not POST image to server, is internet access available or page is down?")
 
