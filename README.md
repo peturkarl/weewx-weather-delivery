@@ -9,7 +9,7 @@ Used on raspberry PI, fetches weather data from weewx controller and sends the d
 $ sudo apt-get update
 
 # Setup dependencies
-$ sudo apt-get weewx apache2 sqlite3 python-pip git
+$ sudo apt-get install weewx sqlite3 python-pip git
 
 # Setup python system packages dependencies
 $ sudo apt-get install python-opencv python-picamera python3-picamera python-requests
@@ -20,7 +20,7 @@ $ pip install requests moment
 #### 2. Setup project
 Create and open the following file
 ```sh
-nano /etc/weewx/skins/Standard/weewx-weather-delivery.txt.tmpl
+sudo nano /etc/weewx/skins/Standard/weewx-weather-delivery.txt.tmpl
 ```
 Insert the following JSON to the file
 ```json
@@ -42,6 +42,35 @@ Insert the following JSON to the file
     "radiation": "$current.radiation"
 }
 ```
+Edit this file
+```sh 
+$ nano /etc/weewx/skins/Standard/skin.conf
+``` 
+Add the following code to the "**[CheetahGenerator]**" code block (*around line 200*)
+
+**Reminder**: Save file after adding the code
+```
+[[weewx-weather-delivery]]
+        encoding = strict_ascii
+        template = weewx-weather-delivery.txt.tmpl
+```
+
+Restart service and make sure it starts up correctly
+```sh
+$ sudo service weewx restart
+```
+
+Fetch the project files
+```sh
+$ cd /home/pi
+$ git clone https://github.com/peturkarl/weewx-weather-delivery.git
+
+# Set cron script to executable
+$ cd weewx-weather-delivery
+$ sudo chmod +X run-script.sh
+$ sudo chmod 744 run-script.sh
+```
+
 
 
 ## Cron 
