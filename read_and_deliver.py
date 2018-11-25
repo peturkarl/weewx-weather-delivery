@@ -4,6 +4,7 @@ import json
 import math
 import moment
 import cv2
+import sys
 from picamera import PiCamera
 from datetime import datetime
 from config import *
