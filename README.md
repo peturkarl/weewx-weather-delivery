@@ -17,7 +17,9 @@ $ sudo apt-get install python-opencv python-picamera python3-picamera python-req
 # Setup python dependencies
 $ pip install requests moment
 ```
-### 2. Setup project
+### 2. Setup weewx run scripts
+This method uses the skin engine for weewx to generate a JSON output to file, which our script can read from. This saves the trouble of accessing the database. You'll need to create a template and add that template to the skin config. 
+
 Create and open the following file
 ```sh
 sudo nano /etc/weewx/skins/Standard/weewx-weather-delivery.txt.tmpl
