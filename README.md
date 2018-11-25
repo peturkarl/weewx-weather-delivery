@@ -27,7 +27,7 @@ sudo nano /etc/weewx/skins/Standard/weewx-weather-delivery.txt.tmpl
 Insert the following JSON to the file
 ```json
 {
-    "datetime": "$current.dateTime",
+    "datetime": "$current.dateTime.format('%d-%b-%Y %H:%M')",
     "outTemp": "$current.outTemp",
     "inTemp": "$current.inTemp",
     "heatindex": "$current.heatindex",
