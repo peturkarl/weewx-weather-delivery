@@ -3,7 +3,7 @@ Used on raspberry PI, fetches weather data from weewx controller and sends the d
 
 ## Setup
 
-#### 1. Prepare environment
+### 1. Prepare environment
 ```sh 
 # Update packages
 $ sudo apt-get update
@@ -17,7 +17,7 @@ $ sudo apt-get install python-opencv python-picamera python3-picamera python-req
 # Setup python dependencies
 $ pip install requests moment
 ```
-#### 2. Setup project
+### 2. Setup project
 Create and open the following file
 ```sh
 sudo nano /etc/weewx/skins/Standard/weewx-weather-delivery.txt.tmpl
@@ -69,13 +69,11 @@ $ git clone https://github.com/peturkarl/weewx-weather-delivery.git
 $ cd weewx-weather-delivery
 $ sudo chmod +X run-script.sh
 $ sudo chmod 744 run-script.sh
+$ touch logs/cron-delivery.log
+$ sudo chmod 777 logs/cron-delivery.log
 ```
 
-
-
-## Cron 
-
-#### Change cron schedule 
+### 3. Setup cron schedule
 ```sh
 # Login as user 'pi"
 $ sudo crontab -e

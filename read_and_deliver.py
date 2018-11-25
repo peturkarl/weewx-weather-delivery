@@ -38,8 +38,9 @@ def directionMap(windDirection):
 	try: 
 		wind_direction = mapper[windDirection]
 		return wind_direction
-	except:
+	except Exception as e:
 		print("Malformed wind_direction value from weewx controller, returning ERR")
+		print(e)
 		return "ERR"
 
 
@@ -51,8 +52,9 @@ def directionMap(windDirection):
 try:
 	with open(config.WEATHER_FILE) as f:
 		weather_data = json.load(f)
-except:
+except Exception as e:
 	print("Could not open weather_data file, make sure it has been setup. Quitting..")
+	print(e)
 	sys.exit()
 
 # Initalize Camera
@@ -60,8 +62,9 @@ try:
 	camera = PiCamera()
 	camera.resolution = (config.IMAGE_WIDTH, config.IMAGE_HIGHT)
 	camera.annotate_text_size = config.TEXT_SIZE
-except:
+except Exception as e:
 	print("Could not open camera feed, make sure it has been connected and setup correctly. Quitting..")
+	print(e)
 	sys.exit()
 
 try:
@@ -74,8 +77,9 @@ try:
 	# Get wind in ms and direction from helper function
 	wind_value = weather_data['windSpeed']
 	wind_direction = directionMap(weather_data['ordinal_compass'])
-except:
+except Exception as e:
 	print("Could not get weather data from file, has it been setup correctly?")
+	print(e)
 
 try:
 	# initalize first picture so the camera can set the brightnes
@@ -83,8 +87,9 @@ try:
 	time.sleep(1)
 	camera.capture('latest_image_from_camera.jpg', quality=config.IMAGE_QUALITY)
 	img = cv2.imread('latest_image_from_camera.jpg')
-except:
+except Exception as e:
 	print("Could not snap image from camera feed, make sure it has been connected and setup correctly. Quitting..")
+	print(e)
 	
 # get image width height
 ht, wd, channels = img.shape
@@ -101,16 +106,18 @@ cv2.putText(img, wind_direction + ' ' + wind_value + ' ' + temperature_value,(10
 
 try:
 	cv2.imwrite('latest_image_from_camera.jpg', img) # Save image
-except: 
+except Exception as e: 
 	print("Could not write camera image to file system, disk corrupted or full?. Quitting...")
+	print(e)
 	sys.exit()
 
 # Upload procedure
 try:
 	files = {'userfile': open('latest_image_from_camera.jpg', 'rb')}
 	requests.post(config.SERVER, files=files, auth=(config.USER, config.PASS))
-except: 
+except Exception as e: 
 	print("Could not POST image to server, is internet access available or page is down?")
+	print(e)
 
 # Close procedure
 camera.close()
