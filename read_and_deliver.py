@@ -52,7 +52,7 @@ try:
 		weather_data = json.load(f)
 except:
 	print("Could not open weather_data file, make sure it has been setup. Quitting..")
-	return False
+	sys.exit()
 
 # Initalize Camera
 try:
@@ -61,7 +61,7 @@ try:
 	camera.annotate_text_size = TEXT_SIZE
 except:
 	print("Could not open camera feed, make sure it has been connected and setup correctly. Quitting..")
-	return False
+	sys.exit()
 
 try: 
 	# Get temp value from file
@@ -103,7 +103,7 @@ try:
 	cv2.imwrite('latest_image_from_camera.jpg', img) # Save image
 except: 
 	print("Could not write camera image to file system, disk corrupted or full?. Quitting...")
-	return False
+	sys.exit()
 
 # Upload procedure
 try:
