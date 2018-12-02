@@ -79,7 +79,7 @@ $ touch logs/cron-delivery.log
 $ sudo chmod 777 logs/cron-delivery.log
 ```
 
-### 4. Setup cron schedule
+### 4. Setup cron schedules
 ```sh
 # Login as user 'pi"
 $ sudo crontab -e
@@ -87,6 +87,19 @@ $ sudo crontab -e
 # INSERT OR EDIT BELOW (runs every 5 minutes)
 */5 * * * * /home/pi/weewx-weather-delivery/run-script.sh >/home/pi/weewx-weather-delivery/logs/cron-delivery.log 2>&1 
 ```
+
+### 5. Setup backups
+```sh
+# Make sure you add your OWN credentials to this file (/home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh)
+# Set the backup script as executable
+$ sudo chmod +x /home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh
+
+
+# INSERT OR EDIT BELOW (runs every 5 minutes)
+0 0 * * 0 /home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh >/home/pi/weewx-weather-delivery/logs/cron-delivery.log 2>&1 
+```
+
+
 
 ## Helpful commands
 ```sh
