@@ -9,7 +9,10 @@ Used on raspberry PI, fetches weather data from weewx controller and sends the d
 $ sudo apt-get update
 
 # Setup dependencies
-$ sudo apt-get install weewx sqlite3 python-pip git
+$ sudo apt-get install sqlite3 python-pip git
+
+# Setup WeeWx
+[Instructions](http://www.weewx.com/docs/debian.htm)
 
 # Setup python system packages dependencies
 $ sudo apt-get install python-opencv python-picamera python3-picamera python-requests
@@ -99,7 +102,7 @@ $ git pull origin master
 # Fetch latest cron log entries(if job successfully run then it's written to the log, else the error is printed)
 $ tail -n 15 /home/pi/weewx-weather-delivery/logs/cron-delivery.log
 
-# Debug why cronjobs aren't working
-$ tail -n 100 /tmp/cron.error.log
+# Find out which USB bus is active
+$ ls /dev/ttyUSB*
 
 ```
