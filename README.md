@@ -15,7 +15,7 @@ $ sudo apt-get install weewx sqlite3 python-pip git
 $ sudo apt-get install python-opencv python-picamera python3-picamera python-requests
 
 # Setup python dependencies
-$ pip install requests moment
+$ sudo pip install requests moment
 ```
 ### 2. Setup weewx run scripts
 This method uses the skin engine for weewx to generate a JSON output to file, which our script can read from. This saves the trouble of accessing the database. You'll need to create a template and add that template to the skin config. 
@@ -82,7 +82,7 @@ $ sudo chmod 777 logs/cron-delivery.log
 $ sudo crontab -e
 
 # INSERT OR EDIT BELOW (runs every 5 minutes)
-*/5 * * * * /home/pi/weewx-weather-delivery/run-script.sh
+*/5 * * * * /home/pi/weewx-weather-delivery/run-script.sh >/home/pi/weewx-weather-delivery/logs/cron-delivery.log 2>&1 
 ```
 
 ## Helpful commands
@@ -95,4 +95,11 @@ $ sudo service restart weewx
 
 # Update code from Git repository (you might have some issues with file permissions)
 $ git pull origin master
+
+# Fetch latest cron log entries(if job successfully run then it's written to the log, else the error is printed)
+$ tail -n 15 /home/pi/weewx-weather-delivery/logs/cron-delivery.log
+
+# Debug why cronjobs aren't working
+$ tail -n 100 /tmp/cron.error.log
+
 ```
