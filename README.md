@@ -73,7 +73,7 @@ $ git clone https://github.com/peturkarl/weewx-weather-delivery.git
 
 # Set cron script to executable
 $ cd weewx-weather-delivery
-$ sudo chmod +X run-script.sh
+$ sudo chmod +x run-script.sh
 $ sudo chmod 744 run-script.sh
 $ touch logs/cron-delivery.log
 $ sudo chmod 777 logs/cron-delivery.log
@@ -84,18 +84,24 @@ $ sudo chmod 777 logs/cron-delivery.log
 # Login as user 'pi"
 $ sudo crontab -e
 
-# INSERT OR EDIT BELOW (runs every 5 minutes)
+# Run image upload (runs every 5 minutes)
 */5 * * * * /home/pi/weewx-weather-delivery/run-script.sh >/home/pi/weewx-weather-delivery/logs/cron-delivery.log 2>&1 
+
+# Restart WeeWX every morning at 08:00
+0 8 * * * /etc/init.d/weewx restart
+
 ```
 
-### 5. Setup backups
+### 5. Setup backups to external FTP
 ```sh
+# -------------------------------
 # Make sure you add your OWN credentials to this file (/home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh)
+#--------------------------------
+
 # Set the backup script as executable
 $ sudo chmod +x /home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh
 
-
-# INSERT OR EDIT BELOW (runs every 5 minutes)
+# Runs every sunday at midnight, sends DB backup to FTP server
 0 0 * * 0 /home/pi/weewx-weather-delivery/weewx_backup_to_ftp.sh >/home/pi/weewx-weather-delivery/logs/cron-delivery.log 2>&1 
 ```
 
