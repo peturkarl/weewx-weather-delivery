@@ -112,3 +112,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Added
+config/config.py
+logs/cron-delivery.log
+latest_image_from_camera.jpg
