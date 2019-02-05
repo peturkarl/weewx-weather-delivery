@@ -79,6 +79,9 @@ try:
 	wind_direction = directionMap(weather_data['ordinal_compass'])
 	wind_gust = weather_data['windGust']
 
+	# Set Script RunTime
+	script_ran_at = moment.now().format('DD. MMM YYYY HH:mm')
+
 except Exception as e:
 	print("Could not get weather data from file, has it been setup correctly?")
 	print(e)
@@ -103,8 +106,8 @@ cv2.line(img,(0,ht),(wd,ht),(0,0,0), 75)
 
 # add text at top and bottom of image
 # Python: cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]) None
-textFormat = wind_direction + ' ' + wind_value + ' ' + temperature_value + ' - Gust ' + wind_gust
-cv2.putText(img, config.HEADER_TEXT+' - '+ date_header, (10,30), font, font_size_on_image,font_color,1)
+textFormat = wind_direction + ' ' + wind_value + ' ' + temperature_value + ' - Gust ' + wind_gust + ' - Generated: ' + date_header
+cv2.putText(img, config.HEADER_TEXT+' - '+ script_ran_at, (10,30), font, font_size_on_image,font_color,1)
 cv2.putText(img, textFormat, (10,ht-10), font, font_size_on_image,font_color,1)
 
 try:
