@@ -106,7 +106,7 @@ cv2.line(img,(0,ht),(wd,ht),(0,0,0), 75)
 
 # add text at top and bottom of image
 # Python: cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]) None
-textFormat = wind_direction + ' ' + wind_value + ' ' + temperature_value + ' - Gust ' + wind_gust + ' - Generated: ' + date_header
+textFormat = wind_direction + ' ' + wind_value + ' ' + temperature_value + ' - Gust ' + wind_gust + ' - At: ' + date_header
 cv2.putText(img, config.HEADER_TEXT+' - '+ script_ran_at, (10,30), font, font_size_on_image,font_color,1)
 cv2.putText(img, textFormat, (10,ht-10), font, font_size_on_image,font_color,1)
 
