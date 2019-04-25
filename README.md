@@ -48,6 +48,15 @@ Insert the following JSON to the file
     "radiation": "$current.radiation"
 }
 ```
+Activate the Report feature, open the config file for weewx
+```sh 
+$ nano /etc/weewx/weewx.conf
+``` 
+Change the following code under the "**[[StandardReport]]**" code block (*around line 192*)
+```
+        enable = true
+```
+
 Edit this file
 ```sh 
 $ nano /etc/weewx/skins/Standard/skin.conf
