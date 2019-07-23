@@ -15,10 +15,10 @@ $ sudo apt-get install sqlite3 python-pip git
 [Instructions](http://www.weewx.com/docs/debian.htm)
 
 # Setup python system packages dependencies
-$ sudo apt-get install python-opencv python-picamera python3-picamera python-requests
+$ sudo apt-get install python-opencv python-picamera python3-picamera python-requests python-backports.functools-lru-cache
 
 # Setup python dependencies
-$ sudo pip install requests arrow
+$ sudo pip install requests moment
 ```
 ### 2. Setup weewx run scripts
 This method uses the skin engine for weewx to generate a JSON output to file, which our script can read from. This saves the trouble of accessing the database. You'll need to create a template and add that template to the skin config. 
