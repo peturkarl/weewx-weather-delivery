@@ -5,6 +5,9 @@ USER='picamera'
 # Add you password if you are using htaccess
 PASS='Summer18'
 
+# Hide weather data (1 for true, 0 for false)
+HIDE_WEATHER_DATA=0
+
 # image width is recommended to be either 640,1280
 IMAGE_WIDTH=1280
 
